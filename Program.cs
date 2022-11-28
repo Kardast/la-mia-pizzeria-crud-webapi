@@ -1,4 +1,5 @@
 using la_mia_pizzeria_static.Models.Repositories;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,14 @@ builder.Services.AddScoped<IDbPizzaRepository, DbPizzaRepository>();
 
 //per far partire con lista se offline
 //builder.Services.AddScoped<IDbPizzaRepository, ListPizzaRepository>();
+
+//per eliminare problema ciclo infinito, da installare ad ogni progetto il seguente pacchetto
+//dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.0.0
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -35,6 +44,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Pizza}/{action=Index}/{id?}");
+    pattern: "{controller=Guest}/{action=Index}/{id?}");
 
 app.Run();
