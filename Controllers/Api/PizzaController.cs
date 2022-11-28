@@ -17,13 +17,16 @@ namespace la_mia_pizzeria_static.Controllers.Api
             _pizzaRepository= pizzaRepository;
         }
 
+        //Metodo di prova che scrive in pagina un numero random
         public IActionResult Test()
         {
+            Random random= new Random();
 
-            return Ok("test");
+            return Ok(random.Next(0,100));
 
         }
 
+        //Metodo che ritorna tutte le info sulle pizze
         public IActionResult Get()
         {
             List<Pizza> pizzas = _pizzaRepository.All();

@@ -1,4 +1,5 @@
-﻿<div class="row js_no_post text-center d-none">
+﻿
+<div class="row js_no_post text-center d-none">
     <div class="col-12">
         <h3>Non hai inserito alcuna pizza</h3>
     </div>
@@ -21,6 +22,14 @@
             document.querySelector('.js_post_table').innerHTML = '';
             res.data.forEach(pizza => {
                 console.log('pizza', pizza);
+
+                let list_ingredient = '';
+
+                pizza.ingredients.forEach(ingredient => {
+                    list_ingredient +=
+                        `<li>${ingredient.name}</li>`
+                })
+
                 document.querySelector('.js_post_table').innerHTML +=
                     `
                     <div class="col-12 col-md-4 p-2">
@@ -30,6 +39,7 @@
                                 <h5 class="card-title">${pizza.name}</h5>
                                 <p class="card-text">${pizza.description}</p>
                                 <p class="card-text">${pizza.cost} euro</p>
+                                <ul>${list_ingredient}</ul>
                             </div>
                         </div>
                     </div>
