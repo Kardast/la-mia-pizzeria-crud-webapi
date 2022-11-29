@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "_GuestLayout";
+}
+
+@model int
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="js_post_container">
+                <!-- dati di dettaglio post -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+        //let pathSplit = window.location.pathname.split('/');
+        //let id = pathSplit[pathSplit.length-1];
+
+        axios.get(`/api/pizza/details/${@Model}`).then(res => {
+            const pizza = res.data;
+
+            //foreach su ingredienti per poi poterli stampare
+            let list_ingredient = '';
+            pizza.ingredients.forEach(ingredient => {
+                list_ingredient +=
+                    `<li>${ingredient.name}</li>`
+            })
+
+            //creazione della card della pizza
+            document.querySelector('.js_post_container').innerHTML +=
+                `
+                <div class="col-12 col-md-4 p-2">
+                        <div class="card post h-100">
+                            <img src="${pizza.image}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">${pizza.name}</h5>
+                            <p class="card-text">${pizza.description}</p>
+                            <p class="card-text">${pizza.category.name}</p>
+                            <ul>${list_ingredient}</ul>
+                            </div>
+                    </div>
+                </div>
+                `;
+        }).catch(error => console.log(error))
+    </script>
+}

@@ -61,5 +61,10 @@
 
             IngredientToPizza(pizza, selectedIngredients);
         }
+
+        public List<Pizza> SearchByName(string? name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

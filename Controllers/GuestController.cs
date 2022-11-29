@@ -21,12 +21,20 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Privacy()
         {
+            ViewData["title"] = "Privacy";
             return View();
         }
 
         public IActionResult About()
         {
+            ViewData["title"] = "About";
             return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            ViewData["title"] = "Dettaglio Post";
+            return View(id);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

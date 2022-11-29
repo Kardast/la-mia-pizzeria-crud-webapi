@@ -1,5 +1,6 @@
 ﻿using la_mia_pizzeria_static.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.SqlServer.Server;
 
 namespace la_mia_pizzeria_static.Models.Repositories
@@ -75,6 +76,18 @@ namespace la_mia_pizzeria_static.Models.Repositories
         {
             db.Pizzas.Remove(pizza);
             db.SaveChanges();
+        }
+
+        //metodo per ricerca tramite il nome
+        public List<Pizza> SearchByName(string? name)
+        {
+            IQueryable<Pizza> query = db.Pizzas.Include("Category").Include("Ingredients");
+
+            //se name è null ritorna tutte le pizza
+            if (name == null)
+                return query.ToList();
+
+            return query.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower())).ToList();
         }
 
 

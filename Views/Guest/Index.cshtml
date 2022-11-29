@@ -3,6 +3,12 @@
 }
 
 
+@*searchbar*@
+<div>
+    <input id="user_search" type="text" class="js_search form-control" />
+    <!-- input id="user_search" type="text" class="js_search form-control" onkeyup="OnUserInput(this)" /> -->
+</div>
+
 <div class="row js_no_post text-center d-none">
     <div class="col-12">
         <h3>Non hai inserito alcuna pizza</h3>
@@ -12,47 +18,78 @@
     <!-- qui verranno mostrati gli elementi -->
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+@section Scripts{
+    <script type="text/javascript">
 
-<script type="text/javascript">
+        document.querySelector(".js_search").addEventListener('keyup', OnUserInputEvent);
 
-    axios.get('/api/pizza/get').then(res => {
-        if (res.data.length == 0) {
-            document.querySelector('.js_no_post').classList.remove('d-none');
-            document.querySelector('.js_post_table').classList.add('d-none');
-        } else {
-            document.querySelector('.js_post_table').classList.remove('d-none');
-            document.querySelector('.js_no_post').classList.add('d-none');
-            document.querySelector('.js_post_table').innerHTML = '';
-            res.data.forEach(pizza => {
-                console.log('pizza', pizza);
+        var timeoutId = null;
 
-                let list_ingredient = '';
+        function OnUserInputEvent(e) {
 
-                pizza.ingredients.forEach(ingredient => {
-                    list_ingredient +=
-                        `<li>${ingredient.name}</li>`
+            let query = e.target.value;
+
+            if (timeoutId != null)
+                clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                axios.get('/api/pizza/search', {
+                    params: {
+                        name: query
+                    }
+                }).then(response => {
+                    RenderPost(response.data);
+                }).catch(error => {
+                    console.log(error);
                 })
 
-                document.querySelector('.js_post_table').innerHTML +=
-                    `
-                    <div class="col-12 col-md-4 p-2">
-                        <div class="card post h-100">
-                                <img src="${pizza.image}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">${pizza.name}</h5>
-                                <p class="card-text">${pizza.description}</p>
-                                <p class="card-text">${pizza.cost} euro</p>
-                                <ul>${list_ingredient}</ul>
+            }, 300);
+
+        }
+
+        console.log("dopo", document.querySelector(".js_search").value);
+
+        //chiamata api per prendere le pizze
+        axios.get('/api/pizza/get').then(res => {
+
+            RenderPost(res.data);
+
+        }).catch(error => {
+
+            debugger;
+            console.log(error);
+
+        })
+
+        //funzione per renderizzare le card delle pizze
+        function RenderPost(data){
+
+            if (data.length == 0) {
+                document.querySelector('.js_no_post').classList.remove('d-none');
+                document.querySelector('.js_post_table').classList.add('d-none');
+            } else {
+                document.querySelector('.js_post_table').classList.remove('d-none');
+                document.querySelector('.js_no_post').classList.add('d-none');
+                document.querySelector('.js_post_table').innerHTML = '';
+                data.forEach(pizza => {
+                    console.log('pizza', pizza);
+
+                    document.querySelector('.js_post_table').innerHTML +=
+                        `
+                        <div class="col-12 col-md-4 p-2">
+                            <div class="card post h-100">
+                                    <img src="${pizza.image}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${pizza.name}</h5>
+                                    <p class="card-text">${pizza.description}</p>
+                                    <p class="card-text">${pizza.cost} euro</p>
+               
+                                    <a href="/Guest/Details/${pizza.id}">dettagli</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    `;
-            });
+                        `;
+                });
+            }
         }
-    }).catch(error => {
-        debugger;
-        console.log(error);
-    })
-
-</script>
+    </script>
+}
