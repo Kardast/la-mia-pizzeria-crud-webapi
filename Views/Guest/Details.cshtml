@@ -28,21 +28,22 @@
             let list_ingredient = '';
             pizza.ingredients.forEach(ingredient => {
                 list_ingredient +=
-                    `<li>${ingredient.name}</li>`
+                    `<li class=" badge btn-info bg-primary">${ingredient.name}</li> `
             })
 
             //creazione della card della pizza
             document.querySelector('.js_post_container').innerHTML +=
                 `
                 <div class="col-12 col-md-4 p-2">
-                        <div class="card post h-100">
-                            <img src="${pizza.image}" class="card-img-top" alt="...">
-                            <div class="card-body">
+                    <div class="card post h-100">
+                        <img src="${pizza.image}" class="card-img-top" alt="...">
+
+                        <div class="card-body">
                             <h5 class="card-title">${pizza.name}</h5>
                             <p class="card-text">${pizza.description}</p>
                             <p class="card-text">${pizza.category.name}</p>
-                            <ul>${list_ingredient}</ul>
-                            </div>
+                            <ul">${list_ingredient}</ul>
+                        </div>
                     </div>
                 </div>
                 `;

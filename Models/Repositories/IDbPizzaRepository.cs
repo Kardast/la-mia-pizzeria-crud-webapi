@@ -1,5 +1,6 @@
 ﻿namespace la_mia_pizzeria_static.Models.Repositories
 {
+    //interfaccia per le repositories db e list
     public interface IDbPizzaRepository
     {
         List<Pizza> All();

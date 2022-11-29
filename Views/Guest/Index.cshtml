@@ -3,17 +3,19 @@
 }
 
 
-@*searchbar*@
+@*searchbar per ricerca pizze*@
 <div>
-    <input id="user_search" type="text" class="js_search form-control" />
-    <!-- input id="user_search" type="text" class="js_search form-control" onkeyup="OnUserInput(this)" /> -->
+    <input id="user_search" type="text" class="js_search form-control" placeholder="Cerca la tua pizza preferita..." />
 </div>
 
+@*container che viene mostrato se non hai pizze*@
 <div class="row js_no_post text-center d-none">
     <div class="col-12">
         <h3>Non hai inserito alcuna pizza</h3>
     </div>
 </div>
+
+@*container delle tue pizza*@
 <div class="row js_post_table d-none">
     <!-- qui verranno mostrati gli elementi -->
 </div>
@@ -21,6 +23,7 @@
 @section Scripts{
     <script type="text/javascript">
 
+        //selettore della classe del div e funzione di ricerca
         document.querySelector(".js_search").addEventListener('keyup', OnUserInputEvent);
 
         var timeoutId = null;
@@ -29,6 +32,7 @@
 
             let query = e.target.value;
 
+            //condizione per far partire una chiamata ad ogni keyup solo se il tempo è scaduto
             if (timeoutId != null)
                 clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
@@ -73,6 +77,7 @@
                 data.forEach(pizza => {
                     console.log('pizza', pizza);
 
+                    //card della pizza con link a dettagli
                     document.querySelector('.js_post_table').innerHTML +=
                         `
                         <div class="col-12 col-md-4 p-2">

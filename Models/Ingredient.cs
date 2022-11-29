@@ -1,4 +1,6 @@
-﻿namespace la_mia_pizzeria_static.Models
+﻿using System.Text.Json.Serialization;
+
+namespace la_mia_pizzeria_static.Models
 {
     public class Ingredient
     {
@@ -6,6 +8,6 @@
         public string Name { get; set; }
 
         //relazione molti a molti tra pizze e ingredienti
-        public List<Pizza> Pizzas { get; set; }
+        public List<Pizza>? Pizzas { get; set; }
     }
 }

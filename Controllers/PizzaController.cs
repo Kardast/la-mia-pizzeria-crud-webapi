@@ -13,6 +13,7 @@ using System.Diagnostics;
 
 namespace la_mia_pizzeria_static.Controllers
 {
+    [Route("[controller]/[action]/{id?}",Order = 0 )]
     public class PizzaController : Controller
     {
         PizzeriaDbContext db;
