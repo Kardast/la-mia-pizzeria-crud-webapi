@@ -1,7 +1,10 @@
+using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models.Repositories;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<PizzeriaDbContext>();
 
 //per far partire con db se funziona
 builder.Services.AddScoped<IDbPizzaRepository, DbPizzaRepository>();

@@ -37,6 +37,12 @@ namespace la_mia_pizzeria_static.Controllers
             return View(id);
         }
 
+        public IActionResult Contact()
+        {
+            ViewData["title"] = "Contattaci";
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_GuestLayout";
+}
+
+<div>
+    <div class="col-12 mt-5">
+        <form onsubmit="inviaMessaggio(event)">
+            <div class="mb-3">
+                <label for="contact-email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="contact-email">
+            </div>
+            <div class="mb-3">
+                <label for="contact-name" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="contact-name">
+            </div>
+            <div class="mb-3">
+                <label for="contact-title" class="form-label">Titolo</label>
+                <input type="text" class="form-control" id="contact-title">
+            </div>
+            <div class="mb-3">
+                <label for="contact-text" class="form-label">Testo</label>
+                <textarea class="form-control" id="contact-text" rows="10"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Invia" />
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        function inviaMessaggio(e) {
+
+            e.preventDefault();
+            axios.post('/api/message', {
+                email: document.querySelector('#contact-email').value,
+                username: document.querySelector('#contact-name').value,
+                title: document.querySelector('#contact-title').value,
+                text: document.querySelector('#contact-text').value,
+            }).then(res => {
+                swal("Messaggio inserito correttamente!", "success");
+                //document.querySelector('#contact-email').value = '';
+                //document.querySelector('#contact-name').value = '';
+                document.querySelector('#contact-title').value = '';
+                document.querySelector('#contact-text').value = '';
+            }).catch(error => {
+
+                console.log(error.response.data.errors);
+            })
+        }
+    </script>
+}
