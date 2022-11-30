@@ -51,22 +51,38 @@
                 text.value = '';
             }).catch(error => {
 
-                let userError = error.response.data.errors;
+                //Metodo non ottimale e con gli if inutili
+                    //let userError = error.response.data.errors;
+                    //if (email.value == '') {
+                    //    swal(userError.Email[0], userError.Email[1]);
+                    //}
+                    //if (userName.value == '') {
+                    //    swal(userError.UserName[0]);
+                    //}
+                    //if (title.value == '') {
+                    //    swal(userError.Title[0]);
+                    //}
+                    //if (text.value == '') {
+                    //    swal(userError.Text[0]);
+                    //}
+                    //console.log(error.response.data.errors.Email[0]);
 
-                if (email.value == '') {
-                    swal(userError.Email[0], userError.Email[1]);
-                }
-                if (userName.value == '') {
-                    swal(userError.UserName[0]);
-                }
-                if (title.value == '') {
-                    swal(userError.Title[0]);
-                }
-                if (text.value == '') {
-                    swal(userError.Text[0]);
-                }
-                
-                //console.log(error.response.data.errors.Email[0]);
+                let errors = "";
+
+                //Object.keys stampa le chiavi dell'oggetto, ad esempio Name, Email, ecc, in forma di array
+                const keys = Object.keys(error.response.data.errors);
+
+                //posso ciclare sull'array
+                keys.forEach(key => {
+
+                    //se c'è più di un errore rifaccio stesso procedimento
+                    const item = error.response.data.errors[key];
+                    item.forEach(error => {
+                        errors += error + "\n ";
+                    })
+                });
+                swal("Errore", errors, "error");
+                console.log(error.response.data.errors);
             })
         }
     </script>
