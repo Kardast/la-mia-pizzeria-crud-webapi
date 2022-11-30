@@ -29,23 +29,44 @@
 @section Scripts{
 
     <script type="text/javascript">
+
+        const email = document.querySelector('#contact-email');
+        const userName = document.querySelector('#contact-name');
+        const title = document.querySelector('#contact-title');
+        const text = document.querySelector('#contact-text');
+
         function inviaMessaggio(e) {
 
             e.preventDefault();
             axios.post('/api/message', {
-                email: document.querySelector('#contact-email').value,
-                username: document.querySelector('#contact-name').value,
-                title: document.querySelector('#contact-title').value,
-                text: document.querySelector('#contact-text').value,
+                email: email.value,
+                username: userName.value,
+                title: title.value,
+                text: text.value,
             }).then(res => {
                 swal("Messaggio inserito correttamente!", "success");
-                //document.querySelector('#contact-email').value = '';
-                //document.querySelector('#contact-name').value = '';
-                document.querySelector('#contact-title').value = '';
-                document.querySelector('#contact-text').value = '';
+                //email.value = '';
+                //userName.value = '';
+                title.value = '';
+                text.value = '';
             }).catch(error => {
 
-                console.log(error.response.data.errors);
+                let userError = error.response.data.errors;
+
+                if (email.value == '') {
+                    swal(userError.Email[0], userError.Email[1]);
+                }
+                if (userName.value == '') {
+                    swal(userError.UserName[0]);
+                }
+                if (title.value == '') {
+                    swal(userError.Title[0]);
+                }
+                if (text.value == '') {
+                    swal(userError.Text[0]);
+                }
+                
+                //console.log(error.response.data.errors.Email[0]);
             })
         }
     </script>
