@@ -19,17 +19,13 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @*action per vedere gli esercizi fatti*@
+                        @*<li class="nav-item">
+                            <a class="nav-link text-dark" href="@Url.Action("Snacks", "Razor")">Snacks</a>
+                        </li>*@
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("About", "Guest")">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Snacks", "Razor")">Snacks</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Pizza")">Pizze</a>
@@ -37,6 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Create">Create</a>
                         </li>
+
+                        @*aggiunta di componente per il login*@
+                        <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>

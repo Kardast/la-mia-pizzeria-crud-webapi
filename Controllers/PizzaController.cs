@@ -3,6 +3,7 @@ using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models;
 using la_mia_pizzeria_static.Models.Form;
 using la_mia_pizzeria_static.Models.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -13,6 +14,7 @@ using System.Diagnostics;
 
 namespace la_mia_pizzeria_static.Controllers
 {
+    [Authorize]
     [Route("[controller]/[action]/{id?}",Order = 0 )]
     public class PizzaController : Controller
     {
