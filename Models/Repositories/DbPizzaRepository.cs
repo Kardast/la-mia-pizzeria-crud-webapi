@@ -21,7 +21,7 @@ namespace la_mia_pizzeria_static.Models.Repositories
 
         public Pizza GetById(int id)
         {
-            return db.Pizzas.Where(p => p.Id == id).Include("Category").Include("Ingredients").FirstOrDefault();
+            return db.Pizzas.Where(p => p.Id == id).Include("Category").Include("Ingredients").Include("Comments").FirstOrDefault();
         }
 
         public void Create(Pizza pizza, List<int> selectedIngredients)

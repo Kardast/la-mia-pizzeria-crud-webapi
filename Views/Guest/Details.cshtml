@@ -8,8 +8,31 @@
     <div class="row">
         <div class="col-12">
             <div class="js_post_container">
-                <!-- dati di dettaglio post -->
+                <!-- dati di dettaglio pizza -->
             </div>
+        </div>
+
+        <div class="col-12">
+            <div class="js_comment_container">
+                <!-- dati di dettaglio commento -->
+            </div>
+        </div>
+        
+        @*form per i commenti*@
+        <div class="col-12 mt-5 ms-1">
+            <h5>Aggiungi un commento</h5>
+            
+            <form onsubmit="inviaCommento(event)">
+                <div class="mb-3">
+                    <label for="comment-name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="comment-name">
+                </div>
+                <div class="mb-3">
+                    <label for="comment-text" class="form-label">Testo</label>
+                    <textarea class="form-control" id="comment-text" rows="10"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Invia" />
+            </form>
         </div>
     </div>
 </div>
@@ -31,6 +54,18 @@
                     `<li class=" badge btn-info bg-primary">${ingredient.name}</li> `
             })
 
+            let list_comments = '';
+
+            pizza.comments.forEach(comment => {
+                 list_comments +=
+                        `
+                        <p>Nome utente: ${comment.name}
+                            </br>
+                            Commento: ${comment.text}
+                        </p>
+                        `
+            })
+
             //creazione della card della pizza
             document.querySelector('.js_post_container').innerHTML +=
                 `
@@ -42,11 +77,51 @@
                             <h5 class="card-title">${pizza.name}</h5>
                             <p class="card-text">${pizza.description}</p>
                             <p class="card-text">${pizza.category.name}</p>
+                            <p>Ingredienti</p>
                             <ul">${list_ingredient}</ul>
+                            <p>Commenti</p>
+                            <ul>${list_comments}</ul>
                         </div>
                     </div>
                 </div>
                 `;
         }).catch(error => console.log(error))
+
+
+
+        const userName = document.querySelector('#comment-name');
+        const text = document.querySelector('#comment-text');
+
+        function inviaCommento(e) {
+
+            e.preventDefault();
+            axios.post('/api/comment', {
+                name: userName.value,
+                text: text.value,
+                pizzaId: @Model,
+            }).then(res => {
+                swal("Successo","Messaggio inserito correttamente!", "success");
+                userName.value = '';
+                text.value = '';
+            }).catch(error => {
+
+                let errors = "";
+
+                //Object.keys stampa le chiavi dell'oggetto, ad esempio Name, Email, ecc, in forma di array
+                const keys = Object.keys(error.response.data.errors);
+
+                //posso ciclare sull'array
+                keys.forEach(key => {
+
+                    //se c'è più di un errore rifaccio stesso procedimento
+                    const item = error.response.data.errors[key];
+                    item.forEach(error => {
+                        errors += error + "\n ";
+                    })
+                });
+                swal("Errore", errors, "error");
+                console.log(error.response.data.errors);
+            })
+        }
     </script>
 }

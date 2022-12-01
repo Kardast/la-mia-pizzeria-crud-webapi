@@ -40,11 +40,17 @@ namespace la_mia_pizzeria_static.Models
         //relazione molti a molti tra pizze e ingredienti
         public List<Ingredient>? Ingredients { get; set; }
 
+        //relazione 1 a molti tra pizze e commenti
+        public List<Comment>? Comments { get; set; }
+
+
+        //questo costruttore vuoto serve se ne hai uno con tutti i dettagli sotto
         public Pizza()
         {
 
         }
 
+        //questo serve solo se inserisci a mano le pizze e non tramite il sito
         public Pizza(string name, string description, string image, float cost, bool available)
         {
             this.Name = name;

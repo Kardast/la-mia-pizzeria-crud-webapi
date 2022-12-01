@@ -11,6 +11,8 @@ namespace la_mia_pizzeria_static.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
 
         public PizzeriaDbContext(DbContextOptions<PizzeriaDbContext> options)
                 : base(options)
