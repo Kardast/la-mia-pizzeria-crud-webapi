@@ -4,6 +4,7 @@
     public interface IDbPizzaRepository
     {
         List<Pizza> All();
+        List<Message> AllMessages();
         void Create(Pizza pizza, List<int> selectedIngredients);
         void Delete(Pizza pizza);
         Pizza GetById(int id);

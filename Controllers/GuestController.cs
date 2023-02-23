@@ -33,7 +33,7 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Details(int id)
         {
-            ViewData["title"] = "Dettaglio Post";
+            ViewData["title"] = "Dettaglio Pizza";
             return View(id);
         }
 
@@ -41,6 +41,11 @@ namespace la_mia_pizzeria_static.Controllers
         {
             ViewData["title"] = "Contattaci";
             return View();
+        }
+        public IActionResult Comment(int id)
+        {
+            ViewData["title"] = "Dettaglio Commento";
+            return View(id);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

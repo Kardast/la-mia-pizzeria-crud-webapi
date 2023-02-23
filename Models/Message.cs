@@ -22,13 +22,5 @@ namespace la_mia_pizzeria_static.Models
         [StringLength(500, ErrorMessage = "Il messaggio non può essere più lunga di 500 caratteri")]
         [Column(TypeName = "text")]
         public string Text { get; set; }
-
-        //public Message(string email, string userName, string title, string text)
-        //{
-        //    Email= email;
-        //    UserName= userName;
-        //    Title= title;
-        //    Text= text;
-        //}
     }
 }

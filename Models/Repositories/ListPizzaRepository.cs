@@ -3,7 +3,9 @@
     public class ListPizzaRepository : IDbPizzaRepository
     {
         public static List<Pizza> Pizzas = new List<Pizza>();
-        
+        public static List<Message> Messages = new List<Message>();
+
+
         public ListPizzaRepository() 
         {
             //non lo possiamo fare perché ogni nuova possibile istanza ci cancella la lista
@@ -12,6 +14,10 @@
         public List<Pizza> All()
         {
             return Pizzas;
+        }
+        public List<Message> AllMessages()
+        {
+            return Messages;
         }
 
         public void Create(Pizza pizza, List<int> selectedIngredients)

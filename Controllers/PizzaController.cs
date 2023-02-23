@@ -37,6 +37,14 @@ namespace la_mia_pizzeria_static.Controllers
             return View(listPizza);
         }
 
+        //messages
+        public IActionResult Messages()
+        {
+            List<Message> listMessage = pizzaRepository.AllMessages();
+
+            return View(listMessage);
+        }
+
         //details
         public IActionResult Details(int id)
         {
@@ -55,7 +63,6 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Create()
         {
             PizzaForm formData = new PizzaForm();
-
             formData.Pizza = new Pizza();
             formData.Categories = db.Categories.ToList();
             formData.Ingredients = new List<SelectListItem>();
@@ -150,7 +157,7 @@ namespace la_mia_pizzeria_static.Controllers
             }
 
 
-            // ---Metodo esplicito---
+            //Metodo esplicito
 
             Pizza pizzaItem = pizzaRepository.GetById(id);
 
@@ -181,9 +188,3 @@ namespace la_mia_pizzeria_static.Controllers
         }
     }
 }
-//DA PROVARE PER IL DISCORSO DELLE LETTERE NEL COSTO
-//if (ModelState["Price"].Errors.Count > 0)
-//{
-//    ModelState["Price"].Errors.Clear();
-//    ModelState["Price"].Errors.Add("Il prezzo deve essere compreso tra 1 e 30");
-//}

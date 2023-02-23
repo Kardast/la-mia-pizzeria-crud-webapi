@@ -44,7 +44,7 @@ namespace la_mia_pizzeria_static.Models
         public List<Comment>? Comments { get; set; }
 
 
-        //questo costruttore vuoto serve se ne hai uno con tutti i dettagli sotto
+        //questo costruttore vuoto serve se ne hai uno con tutti i parametri sotto
         public Pizza()
         {
 

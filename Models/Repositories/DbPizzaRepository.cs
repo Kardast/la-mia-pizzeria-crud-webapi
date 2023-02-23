@@ -19,6 +19,11 @@ namespace la_mia_pizzeria_static.Models.Repositories
             return db.Pizzas.Include(pizza => pizza.Category).Include(pizza => pizza.Ingredients).ToList();
         }
 
+        public List<Message> AllMessages()
+        {
+            return db.Messages.ToList();
+        }
+
         public Pizza GetById(int id)
         {
             return db.Pizzas.Where(p => p.Id == id).Include("Category").Include("Ingredients").Include("Comments").FirstOrDefault();
